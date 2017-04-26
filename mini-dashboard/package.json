@@ -11,7 +11,9 @@
   "dependencies": {
     "vue": "^2.2.1",
     "vue-admin": "^0.1.12",
-    "vuikit": "^0.6.2"
+    "vuikit": "^0.6.2",
+    "vuikit-theme": "git+https://github.com/vuikit/vuikit-theme.git",
+    "woocommerce-api": "^1.4.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

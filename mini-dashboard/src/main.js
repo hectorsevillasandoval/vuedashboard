@@ -9,6 +9,5 @@ Vue.use(Vuikit)
 
 new Vue({
   el: '#app',
-  Vuikit,
   render: h => h(App)
 })
