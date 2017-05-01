@@ -4,10 +4,16 @@
 
     <h1>Orders</h1>
 
+    <vk-tabs width="1-4"
+  :index="index"
+  @change="index = arguments[0]">
+
+  <vk-tabs-item name="Orders">
+
     <vk-table selectable
   striped
   hover
-  trackBy="id"
+  trackBy="number"
   :selectedRows="selectedRows"
   :fields="[{
     name: 'number',
@@ -30,8 +36,16 @@
   :rows="orders"
   :sortOrder="sortOrder"
   @sort="sortOrder = arguments[0]"
-  @change="orders = arguments[0]">
+  @change="rows = arguments[0]">
 </vk-table>
+
+  </vk-tabs-item>
+  <vk-tabs-item name="Tab 2">Content Tab 2</vk-tabs-item>
+  <vk-tabs-item name="Tab 3">Content Tab 3</vk-tabs-item>
+
+</vk-tabs>
+
+
 
 
 
@@ -64,6 +78,7 @@ export default {
       sortOrder: {
         number: 'desc'
       },
+      index: 0,
       selectedRows: [],
       parameters: {
         "oauth_consumer_key": config.consumer_key,
