@@ -20,11 +20,14 @@
     sortBy: true,
     header: 'Number'
   },{
+    name: 'status',
+    header: 'Status'
+    },{
     name: 'order_key'
   }, {
-    name: 'created_via',
+    name: 'payment_method_title',
     headerClass: 'vk-table-width-minimum',
-    header: 'Created VIA'
+    header: 'Payment Method'
   }, {
     name: 'status',
     sortBy: true,
@@ -33,11 +36,17 @@
     name: 'total',
     header: 'Total'
     }]"
-  :rows="orders"
+  :rows="computedOrders"
   :sortOrder="sortOrder"
   @sort="sortOrder = arguments[0]"
   @change="rows = arguments[0]">
 </vk-table>
+<vk-pagination
+    :page="pagination.page"
+    :total="orders.length"
+    :limit="pagination.limit"
+    @change="pagination.page = arguments[0].page">
+  </vk-pagination>
 
   </vk-tabs-item>
   <vk-tabs-item name="Tab 2">Content Tab 2</vk-tabs-item>
@@ -56,6 +65,7 @@
 import axios from 'axios';
 import signature from 'oauth-signature';
 import config from './config.js';
+import _ from 'lodash';
 
 export default {
   name: 'app',
@@ -77,6 +87,11 @@ export default {
       show: false,
       sortOrder: {
         number: 'desc'
+      },
+      pagination: {
+        page: 1,
+        to: 6,
+        limit: 5
       },
       index: 0,
       selectedRows: [],
@@ -122,8 +137,10 @@ export default {
         })
         .then((response) => {
 
+                          console.log(response);
 
             this.parameters.page = response.headers['x-wp-totalpages'];
+            this.pagination.to = response.headers['x-wp-totalpages'];
             this.orders = response.data;
 
           })
@@ -135,13 +152,12 @@ export default {
     }
   },
   computed: {
-    table(){
-
-      let myOrders = [];
-
-
-
-      return myOrders;
+    computedOrders () {
+      const page = this.pagination.page
+      const limit = this.pagination.limit
+      const offset = (page - 1) * limit
+      const total = this.orders.length
+      return _.slice(this.orders, offset, offset + limit)
     }
   }
 }
@@ -157,7 +173,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
+.uk-list > li{
+  width: 100%;
+  box-sizing: border-box;
+  margin:0;
+}
 h1, h2 {
   font-weight: normal;
 }
