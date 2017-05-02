@@ -2,13 +2,15 @@
 <template>
   <div id="app">
 
-    <h1>Orders</h1>
+    <h1>{{msg}}</h1>
+
+
 
     <vk-tabs width="1-4"
   :index="index"
   @change="index = arguments[0]">
 
-  <vk-tabs-item name="Orders">
+  <vk-tabs-item name="Total Summary">
 
     <vk-table selectable
   striped
@@ -49,8 +51,8 @@
   </vk-pagination>
 
   </vk-tabs-item>
-  <vk-tabs-item name="Tab 2">Content Tab 2</vk-tabs-item>
-  <vk-tabs-item name="Tab 3">Content Tab 3</vk-tabs-item>
+  <vk-tabs-item name="Today Summary">Today Summary</vk-tabs-item>
+
 
 </vk-tabs>
 
@@ -66,6 +68,7 @@ import axios from 'axios';
 import signature from 'oauth-signature';
 import config from './config.js';
 import _ from 'lodash';
+
 
 export default {
   name: 'app',
@@ -83,7 +86,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Woocommerce Reporting System',
       show: false,
       sortOrder: {
         number: 'desc'
@@ -180,6 +183,7 @@ export default {
 }
 h1, h2 {
   font-weight: normal;
+  text-align: center;
 }
 
 ul {
